@@ -33,6 +33,7 @@ const handleYear = async (selectedYear) => {
     makes.value = fetchedMakes
     year.value = selectedYear
     make.value = fetchedMakes[0]
+    handleMake(fetchedMakes[0])
     model.value = ''
   } catch (error) {
     console.error(error)
@@ -62,7 +63,7 @@ const handleModel = (selectedModel) => (model.value = selectedModel)
 
 <template>
   <h1>Nexus Test Assignment</h1>
-  <div v-if="isLoading"><PulseLoader /></div>
+  <PulseLoader :loading="isLoading"/>
   <Dropdown :value="year" label="Year" :options="years" :function="handleYear" />
   <Dropdown :value="make" label="Make" :options="makes" :function="handleMake" />
   <Dropdown :value="model" label="Model" :options="models" :function="handleModel" />
