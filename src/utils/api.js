@@ -8,28 +8,35 @@ const api = axios.create({
   },
 })
 
-export const getYears = async () => {
+export const getYears = async (setLoading) => {
   try {
+    setLoading(true)
     const { data } = await api.get(`/api/v2/vehicles/years/?token=${API_TOKEN}`)
     return data.map((y) => y.year)
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
+  }finally{
+    setLoading(false)
   }
 }
 
-export const getMakes = async (year) => {
+export const getMakes = async (year,setLoading) => {
   try {
+    setLoading(true)
     const { data } = await api.get(`/api/v2/vehicles/makes/?year=${year}&token=${API_TOKEN}`)
     return data.map((m) => m.make)
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
+  }finally{
+    setLoading(false)
   }
 }
 
-export const getModels = async (year, make) => {
+export const getModels = async (year, make,setLoading) => {
   try {
+    setLoading(true)
     const { data } = await api.get(
       `/api/v2/vehicles/models/?year=${year}&make=${make}&token=${API_TOKEN}`,
     )
@@ -37,5 +44,7 @@ export const getModels = async (year, make) => {
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
+  }finally{
+    setLoading(false)
   }
 }

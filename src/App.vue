@@ -13,49 +13,27 @@ const models = ref([])
 const makes = ref([])
 const isLoading = ref(false)
 
+const setLoading = v=> isLoading.value = v
+
 onMounted(async () => {
-  try {
-    isLoading.value = true
-    const yrs = await getYears()
+    const yrs = await getYears(setLoading)
     years.value = yrs
-  } catch (error) {
-    console.error(error)
-    throw error
-  } finally {
-    isLoading.value = false
-  }
 })
 
 const handleYear = async (selectedYear) => {
-  try {
-    isLoading.value = true
-    const fetchedMakes = await getMakes(selectedYear)
+    const fetchedMakes = await getMakes(selectedYear, setLoading)
     makes.value = fetchedMakes
     year.value = selectedYear
     make.value = fetchedMakes[0]
     handleMake(fetchedMakes[0])
     model.value = ''
-  } catch (error) {
-    console.error(error)
-    throw error
-  } finally {
-    isLoading.value = false
-  }
 }
 
 const handleMake = async (selectedMake) => {
-  try {
-    isLoading.value = true
-    const fetchedModels = await getModels(year.value, selectedMake)
+    const fetchedModels = await getModels(year.value, selectedMake, setLoading)
     models.value = fetchedModels
     make.value = selectedMake
     model.value = fetchedModels[0]
-  } catch (error) {
-    console.error(error)
-    throw error
-  } finally {
-    isLoading.value = false
-  }
 }
 
 const handleModel = (selectedModel) => (model.value = selectedModel)
