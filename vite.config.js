@@ -9,8 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        // for netlify
-        target: import.meta.env.VITE_API_URL || 'https://rateengine.ship.cars',
+        target: 'https://rateengine.ship.cars',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
