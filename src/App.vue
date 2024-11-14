@@ -16,6 +16,9 @@ const isLoading = ref(false)
 const setLoading = v=> isLoading.value = v
 
 onMounted(async () => {
+  // I wouldn't usually pass loading condition manipulation directly to fetch functions this way 
+  // but since its a small app without the need for router and state management I decided to do 
+  // it like this so the code in this file is tidier
     const yrs = await getYears(setLoading)
     years.value = yrs
 })
