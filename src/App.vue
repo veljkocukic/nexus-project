@@ -18,7 +18,6 @@ onMounted(async () => {
     isLoading.value = true
     const yrs = await getYears()
     years.value = yrs
-    year.value = yrs[0]
   } catch (error) {
     console.error(error)
     throw error
